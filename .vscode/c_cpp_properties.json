@@ -1,0 +1,109 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.22000.0",
+            "compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        },
+        {
+            "name": "Win64",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "H:\\src\\graphviz\\include\\",
+                "H:\\src\\tracy-0.7.8",
+                "C:/VulkanSDK/1.2.162.1/include"
+            ],
+            "defines": [
+                "TRACY_ENABLE",
+                "BUILD_SLOW=1",
+                "BUILD_INTERNAL=1",
+                "DESHI_WINDOWS=1",
+                "DESHI_IMPLEMENTATION",
+                "DESHI_IMPLEMENTATION_UI2",
+                "DESHI_DISABLE_IMGUI",
+                "DESHI_VULKAN=1",
+                "SUUGU_USE_GRAPHVIZ",
+                "FIX_MY_IDE_PLEASE",
+                "AMU_GRAPHVIZ",
+                "AMU_IMPLEMENTATION"
+            ],
+            "windowsSdkVersion": "10.0.22000.0",
+            "compilerPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.32.31326/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64",
+            "compilerArgs": [
+                "/std:c++17"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "forcedInclude": [
+                "${workspaceFolder}/src/su.cpp"
+            ]
+        },
+        {
+            "name": "Win64 no tracy",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:\\src\\graphviz\\include\\",
+                "C:\\src\\tracy-0.7.8\\"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "DESHI_IMPLEMENTATION",
+                "FIX_MY_IDE_PLEASE"
+            ],
+            "windowsSdkVersion": "10.0.22000.0",
+            "compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64",
+            "compilerArgs": [
+                "/std:c++17"
+            ]
+        },
+        {
+            "name": "linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "TRACY_ENABLE",
+                "BUILD_SLOW=1",
+                "BUILD_INTERNAL=1",
+                "DESHI_WINDOWS=0",
+                "DESHI_LINUX=1",
+                "DESHI_IMPLEMENTATION",
+                "DESHI_IMPLEMENTATION_UI2",
+                "DESHI_DISABLE_IMGUI",
+                "DESHI_OPENGL=1",
+                "SUUGU_USE_GRAPHVIZ",
+                "DESHI_RELOADABLE_UI"
+            ],
+            "windowsSdkVersion": "10.0.22000.0",
+            "compilerPath": "/usr/bin/clang++",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-clang-x64",
+            "compilerArgs": [],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}

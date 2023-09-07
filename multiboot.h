@@ -25,13 +25,13 @@ struct bios_boot_device {
 
 // I don't know what this actually does 
 struct boot_command_line {
-    string str;
+    u8* str;
 };
 
 struct modules {
     u32 mod_start;
     u32 mod_end;
-    string str;
+    u8* str;
 };
 
 // TODO(sushi)
@@ -62,12 +62,12 @@ struct memory_map {
     u32 entry_size;
     // currently always 0    
     u32 entry_version;
-    memory_entry* entries;
+    memory_entry entries[];
 };
 
 const u32 boot_loader_name_type = 2;
 struct boot_loader_name {
-    string str;
+    u8* str;
 };
 
 struct apm_table; // TODO(sushi)
@@ -86,7 +86,7 @@ struct framebuffer_info {
     union {
         struct {
             u32 n_colors;
-            color_desc* colors;
+            u8* colors; // TODO(sushi) this needs to point to an actual color struct when it is implemented
         } indexed_color;
         struct {
             u8 red_field_position;
@@ -101,6 +101,8 @@ struct framebuffer_info {
 
 
 struct multiboot_info {
+    u8* starting_addr;
+    u32 total_size;
     struct {
         memory_info*       memory_info;
         bios_boot_device*  bios_boot_device;
@@ -112,7 +114,6 @@ struct multiboot_info {
         framebuffer_info*  framebuffer_info;
     } addresses;
 };
-
 
 // parses the multiboot boot information
 void 

@@ -15,9 +15,10 @@ my @gcc-flags = [
     "-fno-exceptions",
     "-fno-rtti",
     "-fpermissive",
+    "-fdiagnostics-plain-output",
+    "-fdiagnostics-color=always",
+    "-w",
     "-O0",            # we gotta be quick 
-    "-Wall",
-    "-Wextra",
     "-g",
 ];
 
@@ -98,12 +99,11 @@ unless $grub-proc {
 mkdir 'iso/boot/grub';
 
 "iso/boot/grub/grub.cfg".IO.spurt: qq:to/END/;
+    set timeout=0
+    set default=0
     menuentry "$osname" \{
         multiboot2 /boot/$os-out
     \}
-    GRUB_DEFAULT="$osname"
-    GRUB_TIMEOUT=0
-    GRUB_HIDDEN_TIMEOUT=0
     END
 
 copy $os-out, 'iso/boot/' ~ $os-out;

@@ -12,3 +12,5 @@ typedef float              f32;
 typedef double             f64;
 typedef s32                b32;   //sized boolean type
 typedef wchar_t            wchar;
+
+#define FORCE_INLINE inline __attribute__((always_inline))
