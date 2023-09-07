@@ -1,0 +1,5 @@
+namespace multiboot {
+
+
+
+} // namespace multiboot
