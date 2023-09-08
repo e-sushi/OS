@@ -118,9 +118,30 @@ free(void* ptr) {
 }
 
 void
+move(void* dst, void* src, u32 size) {
+    u8* tmp = allocate<u8>(size);
+
+    fori(size)
+        tmp[i] = ((u8*)src)[i];
+    
+    fori(size)
+        ((u8*)dst)[i] = tmp[i];
+    
+    free(tmp);
+}
+
+void
 copy(void* dst, void* src, u32 size) {
+    // fori(size / 4) ((u32*)dst)[i] = 0;
+    // fori(size % 4) ((u8*)dst)[size - i] = 0;
     for(u32 i = 0; i < size; i++) 
-        ((u8*)dst)[i] = ((u8*)src)[i];
+        ((u64*)dst)[i] = ((u64*)src)[i];
+}
+
+void
+zero(void* dst, u32 size) {
+    fori(size / 4) ((u32*)dst)[i] = 0;
+    fori(size % 4) ((u8*)dst)[i] = 0;
 }
 
 } // namespace memory

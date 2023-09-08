@@ -1,0 +1,18 @@
+Focus set to cmd window.
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0xffffffff80001191 in ?? ()
+localhost:1234: Interrupted system call.
+Quit
+0x000000000000fff0 in ?? ()
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+kernel_main (magic=0, addr=0) at kernel.cpp:98
+$1 = {id = {
+    14389525486399949704,
+    757423339400917115,
+    11337855891383901557,
+    11751164683598082331
+  }, revision = 0, response = 0xffff800007f73000}
+Continuing.

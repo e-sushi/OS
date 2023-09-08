@@ -35,7 +35,7 @@ for @processed_chars -> $char {
     my $top = $bottom + $char.bbx[1];
     my $left = $char.bbx[2];
     my $right = $left + $char.bbx[0];
-    for $font_bbx[1]...^0 -> $row {
+    for $font_bbx[1]^...0 -> $row {
         my $y = $row + $font_bbx[3];
         for 0..^$font_bbx[0] -> $column {
             my $x = $column + $font_bbx[2];

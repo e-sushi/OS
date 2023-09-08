@@ -59,9 +59,15 @@ allocate(u32 count);
 void 
 free(void* ptr);
 
+void
+move(void* dst, void* src, u32 size);
+
 // copies 'size' bytes of data at 'src' to 'dst' 
 void
 copy(void* dst, void* src, u32 size);
+
+void
+zero(void* dst, u32 size);
 
 void
 initialize();

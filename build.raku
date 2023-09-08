@@ -1,118 +1,142 @@
-my $osname = "sushos";
+my $kernel = "kershi";
+my $kernel-bin = "$kernel.elf";
+my $kernel-iso = "$kernel.iso";
 
 my $echo-commands = False;
 
 my $bdir = "./build/";
-my $as = "i686-elf-as";
+my $as-cmd = "nasm boot.s -felf64 -g -o $bdir/boot.o";
 
 my $boot-asm = "boot.s";
 my $boot-out = $bdir~"boot.o";
 
-my $gcc = "i686-elf-g++";
+my $gcc = "x86_64-elf-g++";
+my $ld = "x86_64-elf-ld";
+
+my @user-nasm-flags = [
+    "-F", "dwarf", # output debug info in dwarf format
+    "-g", # output debug info
+];
+
+my @user-gcc-flags = [
+    "-g",
+    "-O0",
+];
+
+my @user-link-flags = [
+
+];
+
+sub prefix:<`>(*@a) {
+    with run @a, :out, :merge {
+        unless .so {
+            ("failed with messages: \n" ~
+                .out.slurp(:close)).say and die;
+        }
+        # say the output of the program if there's any non-whitespace text in it 
+        .say if /\S/ given "\n" ~ .out.slurp(:close).indent(4);
+    } 
+}
+
+# the rest of the flags should generally be left alone 
 
 my @gcc-flags = [
-    "-ffreestanding", # this program cannot use any standard libraries
+    "-w", # disable if something is going wrong idk man gcc sucks and gives too many warnings but ill probably eat these words later when i spend like 5 hours trying to figure out some bug that gcc was warning me about the whole time
+    "-ffreestanding", 
+    "-fno-stack-protector",
+    "-fno-stack-check",
+    "-fno-lto",
+    "-fPIE",
+    "-m64",
+    "-march=x86-64",
+    "-mno-80387",
+    "-mno-mmx",
+    "-mno-sse",
+    "-mno-sse2",
+    "-mno-red-zone",
     "-fno-exceptions",
     "-fno-rtti",
     "-fpermissive",
     "-fdiagnostics-plain-output",
     "-fdiagnostics-color=always",
-    "-w",
     "-std=c++20",
-    "-O0",            # we gotta be quick 
+];
+
+my @cpp-flags = [
+    "-I.",
+    "-MMD",
+    "-MP",
+];
+
+my @linker-flags = [
+    "-m", "elf_x86_64",
+    "-nostdlib",
+    "-static",
+    "-pie",
+    "--no-dynamic-linker",
+    "-z", "text",
+    "-z", "max-page-size=0x1000",
+    "-T", "linker.ld",
     "-g",
 ];
 
-my $kernel-src = "kernel.cpp";
-my $kernel-out = $bdir~"kernel.o";
-
-my $linker-script = "linker.ld";
-
-my @linker-flags = [
-    "-ffreestanding",
-    "-O0",
-    "-nostdlib",
-    "-static-libgcc",
-    
+my @nasm-flags = [
+    "-Wall",
+    "-f", "elf64"
 ];
 
-my $os-out = "$osname.bin";
+my $as-files = [];
+my $nasm-files = [];
 
+my $obj = ".o";
 
+"compiling...".print;
+`($gcc, @gcc-flags, @user-gcc-flags, @cpp-flags, '-c', 'kernel.cpp', '-o', 'kernel.o');
+"done".say;
 
-# ---- assemble 
+"linking...".print;
+`($ld, 'kernel.o', @linker-flags, @user-link-flags, '-o', $kernel-bin);
+"done".say;
 
-my @assemble-cmd = $as, $boot-asm, '-g', '-o', $boot-out;
-"assembling $boot-asm with command '{@assemble-cmd}'".say if $echo-commands;
-
-my $assemble-proc = run @assemble-cmd, :out, :merge;
-my $assemble-out = $assemble-proc.out.slurp(:close);
-unless $assemble-proc {
-    "assembly failed with messages: \n$assemble-out".say and die;
-}
-
-"assembly succeeded".say;
-
-
-# ---- compile source
-
-my @compile-cmd = [$gcc, '-c', $kernel-src, '-o', $kernel-out].append: @gcc-flags;
-"compiling $kernel-src with command '{@compile-cmd}'".say if $echo-commands;
-
-my $compile-proc = run @compile-cmd, :out, :merge;
-my $compile-out = $compile-proc.out.slurp(:close);
-unless $compile-proc {
-    "compiling failed with messages: \n$compile-out".say and die;
-}
-
-"compiling succeeded".say;
-
-
-# ---- linking kernel
-
-my @linker-cmd = [$gcc, '-T', $linker-script, '-o', $os-out].append: @linker-flags.append: [$boot-out, $kernel-out, "-lgcc"];
-"linking kernel with command '{@linker-cmd}'".say if $echo-commands;
-
-my $link-proc = run @linker-cmd, :out, :merge;
-my $link-out = $link-proc.out.slurp(:close);
-unless $link-proc {
-    "linking failed with messages: \n$link-out".say and die;
-}
-
-"linking succeeded".say;
-
-
-# ---- verify multiboot
-
-my @cmd = ['grub-file', '--is-x86-multiboot2', $os-out];
-"verifying multiboot with command {@cmd}".say if $echo-commands;
-
-my $grub-proc = run @cmd, :out, :merge;
-unless $grub-proc {
-    "the binary is not multiboot!".say and die;
-}
-
-"successfully confirmed multiboot".say;
-
-
-# ---- build cdrom
-
-mkdir 'iso/boot/grub';
-
-"iso/boot/grub/grub.cfg".IO.spurt: qq:to/END/;
-    set timeout=0
-    set default=0
-    menuentry "$osname" \{
-        multiboot2 /boot/$os-out
-    \}
+"limine.cfg".IO.spurt: qq:to/END/;
+    TIMEOUT=0
+    :myOS (kershi)
+        PROTOCOL=limine
+        KERNEL_PATH=boot:///$kernel-bin
     END
 
-copy $os-out, 'iso/boot/' ~ $os-out;
+# if the limine directory doesn't exist we grab its stuff from git
+# and build it 
+unless "limine".IO.e {
+    "gathering limine binary files from git...".print;
+    `<git clone https://github.com/limine-bootloader/limine.git --branch=v5.x-branch-binary --depth=1>;
+    "done".say;
 
-my $iso-proc = run 'grub-mkrescue', '-o', "$osname.iso", 'iso', :out, :merge;
-my $iso-out = $iso-proc.out.slurp: :close;
-unless $iso-proc {
-    "creating iso image failed with messages: \n$iso-out".say and die;
+    "builing limine...".print;
+    `<make -C limine>;
+    "done".say;
 }
 
-"iso image created succesfully!".say;
+"creating ISO root and copying relevant files...".print;
+`<mkdir -p iso>; # so fancy
+`qq:w[
+    cp -v $kernel-bin limine.cfg limine/limine-bios.sys limine/limine-bios-cd.bin limine/limine-uefi-cd.bin iso/
+];
+"done".say;
+
+"creating EFI boot tree and copying limine's efi exe over...".print;
+`<mkdir -p iso/EFI/BOOT>;
+`<cp -v limine/BOOTX64.EFI limine/BOOTIA32.EFI iso/EFI/BOOT>;
+"done".say;
+
+"creating the bootable ISO...".print;
+`qq:w<xorriso -as mkisofs -b limine-bios-cd.bin 
+          -no-emul-boot -boot-load-size 4 -boot-info-table
+          --efi-boot limine-uefi-cd.bin
+          -efi-boot-part --efi-boot-image --protective-msdos-label
+          iso -o $kernel-iso>;
+"done".say;
+
+"installing limine stage 1 and 2 for legacy BIOS boot...".print;
+`qq:w<limine/limine bios-install $kernel-iso>;
+"done!".say;

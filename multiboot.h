@@ -71,11 +71,10 @@ struct memory_map {
 
 const u32 boot_loader_name_type = 2;
 struct boot_loader_name {
-    u8* str;
+    u8 str[0];
 };
 
 struct apm_table; // TODO(sushi)
-
 struct vbe_info; // TODO(sushi)
 
 const u32 framebuffer_info_type = 8;

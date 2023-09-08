@@ -1,12 +1,46 @@
-ENTRY(_start)
+OUTPUT_FORMAT(elf64-x86-64)
+OUTPUT_ARCH(i386:x86-64)
+
+ENTRY(kernel_main)
+
+/* program headers so the bootloader
+   gives us the right MMU permissions */
+PHDRS {
+    text    PT_LOAD    FLAGS((1 << 0) | (1 << 2)) ; /* Execute + Read */
+    rodata  PT_LOAD    FLAGS((1 << 2)) ;            /* Read only */
+    data    PT_LOAD    FLAGS((1 << 1) | (1 << 2)) ; /* Write + Read */
+    dynamic PT_DYNAMIC FLAGS((1 << 1) | (1 << 2)) ; /* Dynamic PHDR for relocations */
+}
 
 SECTIONS {
-    /* begin putting sections at 1 Mb */
-    . = 1M;
+    /* Place in the topmost 2gb of address space, for opti and because limine spec mandates it */
+    . = 0xffffffff80000000;
 
-    .text BLOCK(4K) : ALIGN(4K) {
-        *(.multiboot2_header)
-        *(.text)
+    .text : {
+        *(.text .text.*)
+    } :text
+    
+    . += CONSTANT(MAXPAGESIZE);
+
+    .rodata : {
+        *(.rodata .rodata.*)
+    } :rodata
+
+    . += CONSTANT(MAXPAGESIZE);
+
+    .data : {
+        *(.data .data.*)
+    } :data
+
+    .bss : {
+        *(.bss .bss.*)
+        *(COMMON)
+    } :data 
+
+    /* these two regions cause issues on some host
+       i was just told to remove them idk  */
+    /DISCARD/ : {
+        *(.eh_frame)
+        *(.note .note.*)
     }
-
 }
