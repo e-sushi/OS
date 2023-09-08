@@ -49,9 +49,10 @@ struct memory_entry {
     u64 length;
     // variety of address range this entry represents
     // 1: available RAM
-    // 2: 3: usable memory holding ACPI info (?)
+    // 3: usable memory holding ACPI info (?)
     // 4: reserved memory that needs to be preserved on hibernation
-    // 5: memory occupied by defective RAM modules and all other values currently indicated in a reserved area
+    // 5: memory occupied by defective RAM modules
+    // any other value indicates unavailable ram
     u32 type;
     u32 reserved;
 };

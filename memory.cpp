@@ -11,12 +11,24 @@ initialize() {
     
 
     Region* r = (Region*)entry->base_addr;
-    *r = {0};
     r->size = entry->length;
-    r->first_free_block = (Block*)(r + 1);
-    *r->first_free_block = {0};
-    r->first_free_block->size = r->size - sizeof(Block);
-    r->first_free_block->region = r;
+    if(!r) {
+        // we need to push the region forward so that we aren't going to 
+        // write over any important kernel info in the first ~ 1/2 mb of 
+        // memory. So we just push it ahead by 5 mb. This is an arbitrary choice
+        // as our boot asm starts at 1mb and I'm not currently sure how to 
+        // start after it in a smart way :)
+        r = (Region*)((u8*)r + Megabytes(5));
+        r->size -= Megabytes(5);
+    }
+
+    r->free_blocks.next = r->free_blocks.prev = &r->free_blocks;
+    Block* first = (Block*)(r + 1);
+    first->node.next = first->node.prev = &first->node;
+    first->size = r->size - sizeof(Block);
+    first->region = r;
+    first->allocated = false;
+    r->free_blocks.insert_last(&first->node);
 
     controller.region = r;
     Region* last_region = r;
@@ -24,13 +36,19 @@ initialize() {
     while(1) {
         entry = (multiboot::memory_entry*)((u32)entry + mm->entry_size);
         if((u8*)entry >= (u8*)t + t->size) break;
+        // ignore entries that are below our first region
+        // since we don't want to write below 5 mb
+        if(entry->base_addr < controller.region) continue;
+        if(!any(entry->type, 1, 3, 4, 5)) continue; // skip any unusable entries
 
         r = (Region*)entry->base_addr;
-        r->size = entry->length;
-        r->first_free_block = (Block*)(r + 1);
-        *r->first_free_block = {0};
-        r->first_free_block->size = r->size - sizeof(Block);
-        r->first_free_block->region = r;
+        *r = Region();
+         Block* first = (Block*)(r + 1);
+        *first = Block();
+        first->size = r->size - sizeof(Block);
+        first->region = r;
+        first->allocated = false;
+        r->free_blocks.insert_last(&first->node);
 
         last_region->next = r;
         r->prev = last_region;
@@ -40,26 +58,25 @@ initialize() {
     }
 }
 
-
 void*
 allocate(u32 size) {
     Region* r = controller.region;
     while(1) {
-        Block* b = r->first_free_block;
+        Block* b = block_from_node(r->free_blocks.next);
         while(1) {
             if(b->size >= size) {
+                b->node.remove();
                 Block* nu = (Block*)((u8*)b + size + sizeof(Block));
                 *nu = {0};
                 nu->size = b->size - size;
                 nu->prev = b;
                 nu->region = r;
-                if(b == r->first_free_block) r->first_free_block = nu;
-                b->next_free = nu->next_free;
+                r->free_blocks.insert_last(&nu->node);
                 b->size = size;
                 b->allocated = true;
-                return (u8*)b + sizeof(Block) - sizeof(Block*);
+                return (u8*)b + allocated_block_size;
             }
-            b = (Block*)((u8*)b + b->size);
+            b = block_from_node(b->node.next);
             if((u8*)b > (u8*)r + r->size) break;
         }
         r = r->next;
@@ -82,23 +99,22 @@ allocate(u32 count) {
 
 void
 free(void* ptr) {
-    auto b = (Block*)ptr - 1;
-    if(b->prev) {
-        if(!b->prev->allocated) {
-            b->prev->size += b->size + sizeof(Block);
-            b = b->prev;
-        }
-        if(b->region->first_free_block > b) {
-            b->region->first_free_block = b;
-
-        } else {
-
-        }
-    } else {
-        ((Region*)b - 1)->first_free_block = b;
-
-    }
+    auto b = block_header(ptr);
     b->allocated = false;
+    b->region->free_blocks.insert_next(&b->node);
+    // check prev and next blocks and try to merge them if 
+    // they're also free
+    if(b->prev && !b->prev->allocated) { 
+        b->prev->size += b->size + sizeof(Block);
+        b->node.remove();
+        b = b->prev;
+    }
+
+    Block* next = next_block(b);
+    if(!next->allocated) {
+        b->size += next->size + sizeof(Block);
+        next->node.remove();
+    }
 }
 
 FORCE_INLINE Block*
@@ -107,107 +123,3 @@ block_from_addr(void* addr) {
 }
 
 } // namespace memory
-
-/*
-
-R --------------------------------,
-                                   v
-|A    |B     |C     |D     |E     |Free                        |
-
-R -----,
-       v
-|A    |Free  |C     |D     |E     |Free                        |
-       |                           ^
-       `--------------------------,
-
-R -----,
-       v
-|A    |Free  |C     |Free  |E     |Free                        |
-       |                           ^
-       `--------------------------,
-        R.f < D 
-
-R -----,             , ------------,
-       v             |             v
-|A    |Free  |C     |Free  |E     |Free                        |
-       |             ^
-       `------------ ,
-       
-R -----,             , -------------------,
-       v             |                    v
-|A    |Free  |C     |Free  |E     |F     |Free                        |
-       |             ^
-       `------------ ,
-
-R -----,             , --------------------------,
-       v             |                           v
-|A    |Free  |C     |Free  |E     |F     |G     |Free                        |
-       | -----,       ^     |      |      |
-       `------------ ,      ,      ,      ,
-                      ^-------------------
-
-(R
-    Free)
-(R
-    Free
-    A)
-...
-(R
-    Free
-    A
-    B
-    C
-    D
-    E)
-
-(R
-    (Free
-        E
-        D
-        C
-        B
-        A))
-(R
-    (Free
-        E
-        D
-        C
-        (Free
-            A)))
-(R
-    (Free
-        E
-        (Free
-            C)
-        (Free
-            A)
-(R
-    (Free
-        F
-        E
-        (Free
-            C)
-        (Free
-            A)
-(R
-    (Free
-        G
-        F
-        E
-        (Free
-            C)
-        (Free
-            A)
-
-(R
-    (Free
-        G
-        (Free
-            E)
-        (Free
-            C)
-        (Free
-            A)
-
-
-*/

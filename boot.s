@@ -106,6 +106,7 @@ _start:
         2.) Wait for the next interrupt to arrive with hlt, locking up the computer.
         3.) Jump to the hlt instruction if we ever wake due to a non-maskable interupt 
             or due to system management mode
+            
     */
 
     cli

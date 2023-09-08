@@ -18,6 +18,7 @@ my @gcc-flags = [
     "-fdiagnostics-plain-output",
     "-fdiagnostics-color=always",
     "-w",
+    "-std=c++20",
     "-O0",            # we gotta be quick 
     "-g",
 ];
@@ -41,7 +42,7 @@ my $os-out = "$osname.bin";
 
 # ---- assemble 
 
-my @assemble-cmd = $as, $boot-asm, '-o', $boot-out;
+my @assemble-cmd = $as, $boot-asm, '-g', '-o', $boot-out;
 "assembling $boot-asm with command '{@assemble-cmd}'".say if $echo-commands;
 
 my $assemble-proc = run @assemble-cmd, :out, :merge;

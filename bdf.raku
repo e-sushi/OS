@@ -1,11 +1,7 @@
-my $n_chars = 0;
+$_ = "gohufont-11.bdf".IO.slurp; # load the file in as the topic
 
-$_ = "gohufont-11.bdf".IO.slurp;
-
-
-
-$n_chars = m/<?after CHARS\s*>\d+/.Int;
-
+my $n_chars = m/<?after CHARS\s*>\d+/.Int;
+my $font_bbx = (m/<?after FONTBOUNDINGBOX\s*> [(\-?\d+?)\s*?] ** 4 <?before \n>/).split(" ").map: *.Int;
 my @chars = m:g/<?after STARTCHAR\s*>.*?<?before ENDCHAR>/;
 
 class Char {
@@ -31,6 +27,35 @@ for @chars -> $char {
     @processed_chars.push: $c;
 }
 
+my $bits_array = "static const u32 font[] = \{\n\t";
+
 for @processed_chars -> $char {
-    
+    $bits_array ~= "// {$char.name} \n\t";
+    my $bottom = $char.bbx[3];
+    my $top = $bottom + $char.bbx[1];
+    my $left = $char.bbx[2];
+    my $right = $left + $char.bbx[0];
+    $font_bbx.say;
+    for $font_bbx[1]...0 -> $row {
+        my $y = $row + $font_bbx[3];
+        for 0..$font_bbx[0] -> $column {
+            my $x = $column + $font_bbx[2];
+            if $bottom <= $y < $top and $left <= $x < $right {
+                say "{$char.name}";
+                say "Y: $bottom < $y < $top row: $row";
+                say "X: $left < $x < $$right col: $column";
+                say ($char.bitmap[$char.bbx[1] - $y - 1 + $bottom] +& (1 +< (($x - $left)))).so;
+                if $char.bitmap[$char.bbx[1] - $y - 1 + $bottom] +& (1 +< (7 - ($x - $left))) {
+                    $bits_array ~= "0xffffff, ";
+                } else {
+                    $bits_array ~= "0x000000, ";
+                }
+            }  else {
+                $bits_array ~= "0x000000, ";
+            }
+        }
+        $bits_array ~= "\n\t";
+    }
 }
+
+"out".IO.spurt: $bits_array;
