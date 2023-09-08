@@ -22,28 +22,19 @@ mb2_header_begin:
     .long CHECKSUM
 
 # framebuffer tag
-; .set FBHEADERLEN, mb2_framebuffer_end - mb2_framebuffer_req
-; mb2_framebuffer_req:
-;         .short 5 # tag 5 indicates that this is for a framebuffer
-;         .short 0 # don't ignore this tag if it is not supported
-;         .long FBHEADERLEN
-;         # preferred width/height/depth, leave as 0 to indicate we don't care
-;         .long 800
-;         .long 600
-;         .long 0
-; mb2_framebuffer_end:
-
-.set FLAGSHEADERLEN, mb2_flags_end - mb2_flags_end
-mb2_flags_begin: 
-    .short 4
-    .short 0
-    .long FLAGSHEADERLEN
-    .long (1 << 0) | (1 << 1)
-mb2_flags_end:
-
+.set FBHEADERLEN, mb2_framebuffer_end - mb2_framebuffer_req
+mb2_framebuffer_req:
+        .short 5 # tag 5 indicates that this is for a framebuffer
+        .short 1 # don't ignore this tag if it is not supported
+        .long FBHEADERLEN
+        # preferred width/height/depth, leave as 0 to indicate we don't care
+        .long 800
+        .long 600
+        .long 0
+mb2_framebuffer_end:
 # end tag
     .long 0
-    .long 8
+    .long 0
 mb2_header_end:
 
 
@@ -106,7 +97,7 @@ _start:
         2.) Wait for the next interrupt to arrive with hlt, locking up the computer.
         3.) Jump to the hlt instruction if we ever wake due to a non-maskable interupt 
             or due to system management mode
-            
+
     */
 
     cli

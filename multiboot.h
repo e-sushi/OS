@@ -1,3 +1,6 @@
+#ifndef KERNEL_MULTIBOOT_H
+#define KERNEL_MULTIBOOT_H
+
 #define MULTIBOOT2_HEADER_MAGIC 0xE85250D6
 
 #include "string.h"
@@ -123,3 +126,5 @@ parse(u32 addr);
 extern multiboot_info mi;
 
 } // namespace multiboot
+
+#endif // KERNEL_MULTIBOOT_H

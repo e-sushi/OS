@@ -1,5 +1,10 @@
+#ifndef KERNEL_MEMORY_H
+#define KERNEL_MEMORY_H
+
 #include "common.h"
 #include "node.h"
+
+
 
 namespace memory {
 
@@ -54,12 +59,15 @@ allocate(u32 count);
 void 
 free(void* ptr);
 
+// copies 'size' bytes of data at 'src' to 'dst' 
+void
+copy(void* dst, void* src, u32 size);
+
 void
 initialize();
-
-FORCE_INLINE Block*
-block_from_addr(void* addr);
 
 extern Controller controller;
 
 } // namespace memory
+
+#endif // KERNEL_MEMORY_H

@@ -21,6 +21,11 @@ typedef wchar_t            wchar;
 #define Gigabytes(a) (((u64)(a)) << 30)
 #define Terabytes(a) (((u64)(a)) << 40)
 
+#define forx(var_name,iterations) for(int var_name=0; var_name<(iterations); ++var_name)
+#define forx_reverse(var_name,iterations) for(int var_name=(iterations)-1; var_name>=0; --var_name)
+#define fori(iterations) for(int i=0; i<(iterations); ++i)
+#define fori_reverse(iterations) for(int i=(iterations)-1; i>=0; --i)
+
 #define FORCE_INLINE inline __attribute__((always_inline))
 
 template<typename A, typename... T> FORCE_INLINE b32

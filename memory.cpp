@@ -117,9 +117,10 @@ free(void* ptr) {
     }
 }
 
-FORCE_INLINE Block*
-block_from_addr(void* addr) {
-    return (Block*)addr - 1;
+void
+copy(void* dst, void* src, u32 size) {
+    for(u32 i = 0; i < size; i++) 
+        ((u8*)dst)[i] = ((u8*)src)[i];
 }
 
 } // namespace memory

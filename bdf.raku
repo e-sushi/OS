@@ -22,12 +22,12 @@ for @chars -> $char {
     my $bbx = ($char ~~ m/<?after BBX\s*> [(\-?\d+?)\s*?] ** 4 <?before \n>/).list;
     $c.bbx = ($bbx[0][0].Int, $bbx[0][1].Int, $bbx[0][2].Int, $bbx[0][3].Int);
     my $bm = $char ~~ m/<?after BITMAP\s*>.*/;
+    @processed_chars.push: $c;
     next unless $bm ~~ /\N/; 
     $c.bitmap = Blob.new($bm.Str.split("\n").map(*.trim).grep(* ~~ /\N/).map(("0x" ~ *).Int));
-    @processed_chars.push: $c;
 }
 
-my $bits_array = "static const u32 font[] = \{\n\t";
+my $bits_array = "#include \"common.h\"\nstatic const u32 font[] = \{\n\t";
 
 for @processed_chars -> $char {
     $bits_array ~= "// {$char.name} \n\t";
@@ -35,16 +35,11 @@ for @processed_chars -> $char {
     my $top = $bottom + $char.bbx[1];
     my $left = $char.bbx[2];
     my $right = $left + $char.bbx[0];
-    $font_bbx.say;
-    for $font_bbx[1]...0 -> $row {
+    for $font_bbx[1]...^0 -> $row {
         my $y = $row + $font_bbx[3];
-        for 0..$font_bbx[0] -> $column {
+        for 0..^$font_bbx[0] -> $column {
             my $x = $column + $font_bbx[2];
             if $bottom <= $y < $top and $left <= $x < $right {
-                say "{$char.name}";
-                say "Y: $bottom < $y < $top row: $row";
-                say "X: $left < $x < $$right col: $column";
-                say ($char.bitmap[$char.bbx[1] - $y - 1 + $bottom] +& (1 +< (($x - $left)))).so;
                 if $char.bitmap[$char.bbx[1] - $y - 1 + $bottom] +& (1 +< (7 - ($x - $left))) {
                     $bits_array ~= "0xffffff, ";
                 } else {
@@ -58,4 +53,8 @@ for @processed_chars -> $char {
     }
 }
 
-"out".IO.spurt: $bits_array;
+$bits_array ~= "\n};\n\n";
+
+$bits_array ~= "const u32 char_size = sizeof(u32) * {$font_bbx[0] * $font_bbx[1]};";
+
+"font.h".IO.spurt: $bits_array;

@@ -4,6 +4,9 @@
 
 */
 
+#ifndef KERNEL_NODE_H
+#define KERNEL_NODE_H
+
 // doubly linked list node
 struct LNode {
     LNode* prev;
@@ -33,3 +36,5 @@ struct LNode {
         this->prev->next = this->next;
     }
 }; 
+
+#endif // KERNEL_NODE_H

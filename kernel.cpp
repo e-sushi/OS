@@ -5,6 +5,8 @@
 #include "common.h"
 #include "multiboot.h"
 #include "memory.h"
+#include "graphics.h"
+#include "print.h"
 
 #include "multiboot.cpp"
 #include "memory.cpp"
@@ -26,14 +28,12 @@ void kernel_main(u32 magic, u32 addr) {
     multiboot::parse(addr);
     memory::initialize();
 
-    void* A = memory::allocate(128);
-    void* B = memory::allocate(512);
-    void* C = memory::allocate(1024);
-    void* D = memory::allocate(512);
-    void* E = memory::allocate(128);
+    u8* print_buffer = memory::allocate<u8>(Kilobytes(12));
 
-    memory::free(C);
-    memory::free(D);
-    memory::free(B);
-
+    volatile u8 i;
+    while(1) {
+        print(print_buffer, (char)(rand() % ('~' - ' ') + ' '));
+        i += 1;
+    }
+    print(print_buffer, i);
 }
