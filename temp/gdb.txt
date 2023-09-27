@@ -1,18 +1,524 @@
 Focus set to cmd window.
-warning: No executable has been specified and target does not support
-determining executable automatically.  Try using the "file" command.
-0xffffffff80001191 in ?? ()
-localhost:1234: Interrupted system call.
-Quit
-0x000000000000fff0 in ?? ()
+memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4095736) at src/memory.cpp:147
+Run till exit from #0  memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4095736) at src/memory.cpp:147
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>, buffer=0x51040 "\n\020\005", col=...) at src/print.cpp:18
+Run till exit from #0  Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>, buffer=0x51040 "\n\020\005", col=...) at src/print.cpp:18
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>) at src/print.cpp:31
+Value returned is $1 = 1
+Run till exit from #0  Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>) at src/print.cpp:31
+kernel_main (magic=0, addr=0) at src/kernel.cpp:74
+Value returned is $2 = 1
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>) at src/print.cpp:30
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>, buffer=0x51040 "a\020\005", col=...) at src/print.cpp:3
+$3 = 811
+$4 = 789
 Continuing.
 
 Program received signal SIGINT, Interrupt.
-kernel_main (magic=0, addr=0) at kernel.cpp:98
-$1 = {id = {
-    14389525486399949704,
-    757423339400917115,
-    11337855891383901557,
-    11751164683598082331
-  }, revision = 0, response = 0xffff800007f73000}
+memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4095736) at src/memory.cpp:147
+Run till exit from #0  memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4095736) at src/memory.cpp:147
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>, buffer=0x51040 "\n\020\005", col=...) at src/print.cpp:18
+Run till exit from #0  Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>, buffer=0x51040 "\n\020\005", col=...) at src/print.cpp:18
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>) at src/print.cpp:31
+Value returned is $5 = 1
+Run till exit from #0  Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>) at src/print.cpp:31
+kernel_main (magic=0, addr=0) at src/kernel.cpp:74
+Value returned is $6 = 1
+kernel_main (magic=0, addr=0) at src/kernel.cpp:73
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>) at src/print.cpp:30
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>, buffer=0x51040 "a\020\005", col=...) at src/print.cpp:3
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>) at src/print.cpp:31
+kernel_main (magic=0, addr=0) at src/kernel.cpp:74
+kernel_main (magic=0, addr=0) at src/kernel.cpp:73
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>) at src/print.cpp:30
+Printer::print<char const*> (this=0xffffffff80012588 <kernel+8>, buffer=0x51040 "a\020\005", col=...) at src/print.cpp:3
+memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4095736) at src/memory.cpp:141
+memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4095736) at src/memory.cpp:150
+$7 = (void *) 0xffff8000fd00dc00
+$8 = (void *) 0xffff8000fd000000
+$9 = 56320
 Continuing.
+
+Program received signal SIGINT, Interrupt.
+0xffffffff800017c8 in kernel_main (magic=0, addr=0) at src/kernel.cpp:70
+kernel_main (magic=0, addr=0) at src/kernel.cpp:73
+Printer::print<char const*> (this=0xffffffff800125c8 <kernel+8>) at src/print.cpp:30
+Printer::print<char const*> (this=0xffffffff800125c8 <kernel+8>, buffer=0x51040 "a\020\005", col=...) at src/print.cpp:3
+$10 = 800
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+0xffffffff80000e4d in memory::zero (dst=0xffff8000fd3da400, size=61440) at src/memory.cpp:158
+#1  0xffffffff80002ed0 in Printer::print<char const*> (this=0xffffffff800125c8 <kernel+8>, buffer=0x51040 "\n\020\005", col=...) at src/print.cpp:20
+Run till exit from #1  0xffffffff80002ed0 in Printer::print<char const*> (this=0xffffffff800125c8 <kernel+8>, buffer=0x51040 "\n\020\005", col=...) at src/print.cpp:20
+Printer::print<char const*> (this=0xffffffff800125c8 <kernel+8>) at src/print.cpp:31
+Value returned is $11 = 1
+Run till exit from #0  Printer::print<char const*> (this=0xffffffff800125c8 <kernel+8>) at src/print.cpp:31
+kernel_main (magic=0, addr=0) at src/kernel.cpp:74
+Value returned is $12 = 1
+kernel_main (magic=0, addr=0) at src/kernel.cpp:73
+Printer::print<char const*> (this=0xffffffff800125c8 <kernel+8>) at src/print.cpp:30
+Printer::print<char const*> (this=0xffffffff800125c8 <kernel+8>, buffer=0x51040 "a\020\005", col=...) at src/print.cpp:3
+$13 = (u8 *) 0xffff8000fd00dc00 ""
+$14 = 56320
+$15 = 14080
+Undefined command: "fb.width".  Try "help".
+$16 = 84480
+$17 = 1280
+$18 = 14080
+$19 = 56320
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4039680) at src/memory.cpp:147
+#1  0xffffffff80002eec in Printer::print<char const*> (this=0x1800112dc, buffer=0x51040 "\n\020\005", col=...) at src/print.cpp:8
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4039680) at src/memory.cpp:147
+Run till exit from #0  memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4039680) at src/memory.cpp:147
+0xffffffff80002f04 in to_str<char const*, char const*> (buffer=0x3da400fd3e6e98 <error: Cannot access memory at address 0x3da400fd3e6e98>) at src/print.h:177
+Run till exit from #0  0xffffffff80002f04 in to_str<char const*, char const*> (buffer=0x3da400fd3e6e98 <error: Cannot access memory at address 0x3da400fd3e6e98>) at src/print.h:177
+
+Program received signal SIGINT, Interrupt.
+memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4039680) at src/memory.cpp:147
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4039680) at src/memory.cpp:147
+Quit
+Quit
+Quit
+Quit
+Quit
+Quit
+Quit
+Run till exit from #0  memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4039680) at src/memory.cpp:144
+Printer::print<char const*> (this=0xffffffff800126c8 <kernel+8>, buffer=0x51040 "\n\020\005", col=...) at src/print.cpp:18
+Run till exit from #0  Printer::print<char const*> (this=0xffffffff800126c8 <kernel+8>, buffer=0x51040 "\n\020\005", col=...) at src/print.cpp:18
+Printer::print<char const*> (this=0xffffffff800126c8 <kernel+8>) at src/print.cpp:36
+Value returned is $20 = 1
+Run till exit from #0  Printer::print<char const*> (this=0xffffffff800126c8 <kernel+8>) at src/print.cpp:36
+kernel_main (magic=0, addr=0) at src/kernel.cpp:74
+Value returned is $21 = 1
+kernel_main (magic=0, addr=0) at src/kernel.cpp:73
+Printer::print<char const*> (this=0xffffffff800126c8 <kernel+8>) at src/print.cpp:35
+Printer::print<char const*> (this=0xffffffff800126c8 <kernel+8>, buffer=0x51040 "a\020\005", col=...) at src/print.cpp:3
+$22 = 4096000
+$23 = 4039680
+Continuing.
+[Inferior 1 (process 1) exited normally]
+0x000000000000fff0 in ?? ()
+Breakpoint 1 at 0xffffffff80000db8: file src/memory.cpp, line 148.
+Continuing.
+
+Breakpoint 1, memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4039680) at src/memory.cpp:148
+warning: Source file is more recent than executable.
+$24 = 0
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+0xffffffff80000e12 in memory::copy (dst=0xffff8000fd000000, src=0xffff8000fd00dc00, size=4039680) at src/memory.cpp:143
+Dump of assembler code for function _ZN6memory4copyEPvS0_j:
+   0xffffffff80000dfa <+121>:	add    %rcx,%rdx
+   0xffffffff80000dfd <+124>:	movups (%rdx),%xmm0
+   0xffffffff80000e00 <+127>:	movups %xmm0,(%rax)
+   0xffffffff80000e03 <+130>:	addl   $0x1,-0x8(%rbp)
+   0xffffffff80000e07 <+134>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000e0a <+137>:	shr    $0x7,%eax
+   0xffffffff80000e0d <+140>:	mov    -0x8(%rbp),%edx
+   0xffffffff80000e10 <+143>:	cmp    %eax,%edx
+=> 0xffffffff80000e12 <+145>:	jb     0xffffffff80000db8 <_ZN6memory4copyEPvS0_j+55>
+   0xffffffff80000e14 <+147>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000e17 <+150>:	mov    %eax,-0xc(%rbp)
+   0xffffffff80000e1a <+153>:	jmp    0xffffffff80000e3f <_ZN6memory4copyEPvS0_j+190>
+   0xffffffff80000e1c <+155>:	mov    -0xc(%rbp),%eax
+   0xffffffff80000e1f <+158>:	movslq %eax,%rdx
+   0xffffffff80000e22 <+161>:	mov    -0x20(%rbp),%rax
+   0xffffffff80000e26 <+165>:	add    %rdx,%rax
+   0xffffffff80000e29 <+168>:	mov    -0xc(%rbp),%edx
+   0xffffffff80000e2c <+171>:	movslq %edx,%rcx
+   0xffffffff80000e2f <+174>:	mov    -0x18(%rbp),%rdx
+   0xffffffff80000e33 <+178>:	add    %rcx,%rdx
+   0xffffffff80000e36 <+181>:	movzbl (%rax),%eax
+   0xffffffff80000e39 <+184>:	mov    %al,(%rdx)
+   0xffffffff80000e3b <+186>:	addl   $0x1,-0xc(%rbp)
+   0xffffffff80000e3f <+190>:	mov    -0xc(%rbp),%eax
+   0xffffffff80000e42 <+193>:	cmp    -0x24(%rbp),%eax
+   0xffffffff80000e45 <+196>:	jb     0xffffffff80000e1c <_ZN6memory4copyEPvS0_j+155>
+   0xffffffff80000e47 <+198>:	nop
+   0xffffffff80000e48 <+199>:	nop
+   0xffffffff80000e49 <+200>:	leave
+   0xffffffff80000e4a <+201>:	ret
+End of assembler dump.
+Dump of assembler code for function _ZN6memory4copyEPvS0_j:
+   0xffffffff80000db6 <+53>:	jmp    0xffffffff80000e07 <_ZN6memory4copyEPvS0_j+134>
+   0xffffffff80000db8 <+55>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000dbb <+58>:	shr    $0x7,%eax
+   0xffffffff80000dbe <+61>:	mov    %eax,%edx
+   0xffffffff80000dc0 <+63>:	mov    -0x8(%rbp),%eax
+   0xffffffff80000dc3 <+66>:	cmp    %eax,%edx
+   0xffffffff80000dc5 <+68>:	jne    0xffffffff80000dce <_ZN6memory4copyEPvS0_j+77>
+   0xffffffff80000dc7 <+70>:	movl   $0x0,-0x10(%rbp)
+=> 0xffffffff80000dce <+77>:	mov    -0x8(%rbp),%eax
+   0xffffffff80000dd1 <+80>:	shl    $0x2,%eax
+   0xffffffff80000dd4 <+83>:	cltq
+   0xffffffff80000dd6 <+85>:	lea    0x0(,%rax,4),%rdx
+   0xffffffff80000dde <+93>:	mov    -0x20(%rbp),%rax
+   0xffffffff80000de2 <+97>:	add    %rdx,%rax
+   0xffffffff80000de5 <+100>:	mov    -0x8(%rbp),%edx
+   0xffffffff80000de8 <+103>:	shl    $0x2,%edx
+   0xffffffff80000deb <+106>:	movslq %edx,%rdx
+   0xffffffff80000dee <+109>:	lea    0x0(,%rdx,4),%rcx
+   0xffffffff80000df6 <+117>:	mov    -0x18(%rbp),%rdx
+   0xffffffff80000dfa <+121>:	add    %rcx,%rdx
+   0xffffffff80000dfd <+124>:	movups (%rdx),%xmm0
+   0xffffffff80000e00 <+127>:	movups %xmm0,(%rax)
+   0xffffffff80000e03 <+130>:	addl   $0x1,-0x8(%rbp)
+   0xffffffff80000e07 <+134>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000e0a <+137>:	shr    $0x7,%eax
+   0xffffffff80000e0d <+140>:	mov    -0x8(%rbp),%edx
+   0xffffffff80000e10 <+143>:	cmp    %eax,%edx
+   0xffffffff80000e12 <+145>:	jb     0xffffffff80000db8 <_ZN6memory4copyEPvS0_j+55>
+   0xffffffff80000e14 <+147>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000e17 <+150>:	mov    %eax,-0xc(%rbp)
+   0xffffffff80000e1a <+153>:	jmp    0xffffffff80000e3f <_ZN6memory4copyEPvS0_j+190>
+   0xffffffff80000e1c <+155>:	mov    -0xc(%rbp),%eax
+   0xffffffff80000e1f <+158>:	movslq %eax,%rdx
+   0xffffffff80000e22 <+161>:	mov    -0x20(%rbp),%rax
+   0xffffffff80000e26 <+165>:	add    %rdx,%rax
+   0xffffffff80000e29 <+168>:	mov    -0xc(%rbp),%edx
+   0xffffffff80000e2c <+171>:	movslq %edx,%rcx
+   0xffffffff80000e2f <+174>:	mov    -0x18(%rbp),%rdx
+   0xffffffff80000e33 <+178>:	add    %rcx,%rdx
+   0xffffffff80000e36 <+181>:	movzbl (%rax),%eax
+   0xffffffff80000e39 <+184>:	mov    %al,(%rdx)
+   0xffffffff80000e3b <+186>:	addl   $0x1,-0xc(%rbp)
+   0xffffffff80000e3f <+190>:	mov    -0xc(%rbp),%eax
+   0xffffffff80000e42 <+193>:	cmp    -0x24(%rbp),%eax
+   0xffffffff80000e45 <+196>:	jb     0xffffffff80000e1c <_ZN6memory4copyEPvS0_j+155>
+   0xffffffff80000e47 <+198>:	nop
+   0xffffffff80000e48 <+199>:	nop
+   0xffffffff80000e49 <+200>:	leave
+   0xffffffff80000e4a <+201>:	ret
+End of assembler dump.
+$25 = 12929
+Undefined command: "diass".  Try "help".
+Dump of assembler code for function _ZN6memory4copyEPvS0_j:
+   0xffffffff80000dc3 <+66>:	cmp    %eax,%edx
+   0xffffffff80000dc5 <+68>:	jne    0xffffffff80000dce <_ZN6memory4copyEPvS0_j+77>
+   0xffffffff80000dc7 <+70>:	movl   $0x0,-0x10(%rbp)
+   0xffffffff80000dce <+77>:	mov    -0x8(%rbp),%eax
+   0xffffffff80000dd1 <+80>:	shl    $0x2,%eax
+   0xffffffff80000dd4 <+83>:	cltq
+   0xffffffff80000dd6 <+85>:	lea    0x0(,%rax,4),%rdx
+   0xffffffff80000dde <+93>:	mov    -0x20(%rbp),%rax
+=> 0xffffffff80000de2 <+97>:	add    %rdx,%rax
+   0xffffffff80000de5 <+100>:	mov    -0x8(%rbp),%edx
+   0xffffffff80000de8 <+103>:	shl    $0x2,%edx
+   0xffffffff80000deb <+106>:	movslq %edx,%rdx
+   0xffffffff80000dee <+109>:	lea    0x0(,%rdx,4),%rcx
+   0xffffffff80000df6 <+117>:	mov    -0x18(%rbp),%rdx
+   0xffffffff80000dfa <+121>:	add    %rcx,%rdx
+   0xffffffff80000dfd <+124>:	movups (%rdx),%xmm0
+   0xffffffff80000e00 <+127>:	movups %xmm0,(%rax)
+   0xffffffff80000e03 <+130>:	addl   $0x1,-0x8(%rbp)
+   0xffffffff80000e07 <+134>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000e0a <+137>:	shr    $0x7,%eax
+   0xffffffff80000e0d <+140>:	mov    -0x8(%rbp),%edx
+   0xffffffff80000e10 <+143>:	cmp    %eax,%edx
+   0xffffffff80000e12 <+145>:	jb     0xffffffff80000db8 <_ZN6memory4copyEPvS0_j+55>
+   0xffffffff80000e14 <+147>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000e17 <+150>:	mov    %eax,-0xc(%rbp)
+   0xffffffff80000e1a <+153>:	jmp    0xffffffff80000e3f <_ZN6memory4copyEPvS0_j+190>
+   0xffffffff80000e1c <+155>:	mov    -0xc(%rbp),%eax
+   0xffffffff80000e1f <+158>:	movslq %eax,%rdx
+   0xffffffff80000e22 <+161>:	mov    -0x20(%rbp),%rax
+   0xffffffff80000e26 <+165>:	add    %rdx,%rax
+   0xffffffff80000e29 <+168>:	mov    -0xc(%rbp),%edx
+   0xffffffff80000e2c <+171>:	movslq %edx,%rcx
+   0xffffffff80000e2f <+174>:	mov    -0x18(%rbp),%rdx
+   0xffffffff80000e33 <+178>:	add    %rcx,%rdx
+   0xffffffff80000e36 <+181>:	movzbl (%rax),%eax
+   0xffffffff80000e39 <+184>:	mov    %al,(%rdx)
+   0xffffffff80000e3b <+186>:	addl   $0x1,-0xc(%rbp)
+   0xffffffff80000e3f <+190>:	mov    -0xc(%rbp),%eax
+   0xffffffff80000e42 <+193>:	cmp    -0x24(%rbp),%eax
+   0xffffffff80000e45 <+196>:	jb     0xffffffff80000e1c <_ZN6memory4copyEPvS0_j+155>
+   0xffffffff80000e47 <+198>:	nop
+   0xffffffff80000e48 <+199>:	nop
+   0xffffffff80000e49 <+200>:	leave
+   0xffffffff80000e4a <+201>:	ret
+End of assembler dump.
+Dump of assembler code for function _ZN6memory4copyEPvS0_j:
+   0xffffffff80000dde <+93>:	mov    -0x20(%rbp),%rax
+   0xffffffff80000de2 <+97>:	add    %rdx,%rax
+   0xffffffff80000de5 <+100>:	mov    -0x8(%rbp),%edx
+   0xffffffff80000de8 <+103>:	shl    $0x2,%edx
+   0xffffffff80000deb <+106>:	movslq %edx,%rdx
+   0xffffffff80000dee <+109>:	lea    0x0(,%rdx,4),%rcx
+   0xffffffff80000df6 <+117>:	mov    -0x18(%rbp),%rdx
+   0xffffffff80000dfa <+121>:	add    %rcx,%rdx
+=> 0xffffffff80000dfd <+124>:	movups (%rdx),%xmm0
+   0xffffffff80000e00 <+127>:	movups %xmm0,(%rax)
+   0xffffffff80000e03 <+130>:	addl   $0x1,-0x8(%rbp)
+   0xffffffff80000e07 <+134>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000e0a <+137>:	shr    $0x7,%eax
+   0xffffffff80000e0d <+140>:	mov    -0x8(%rbp),%edx
+   0xffffffff80000e10 <+143>:	cmp    %eax,%edx
+   0xffffffff80000e12 <+145>:	jb     0xffffffff80000db8 <_ZN6memory4copyEPvS0_j+55>
+   0xffffffff80000e14 <+147>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000e17 <+150>:	mov    %eax,-0xc(%rbp)
+   0xffffffff80000e1a <+153>:	jmp    0xffffffff80000e3f <_ZN6memory4copyEPvS0_j+190>
+   0xffffffff80000e1c <+155>:	mov    -0xc(%rbp),%eax
+   0xffffffff80000e1f <+158>:	movslq %eax,%rdx
+   0xffffffff80000e22 <+161>:	mov    -0x20(%rbp),%rax
+   0xffffffff80000e26 <+165>:	add    %rdx,%rax
+   0xffffffff80000e29 <+168>:	mov    -0xc(%rbp),%edx
+   0xffffffff80000e2c <+171>:	movslq %edx,%rcx
+   0xffffffff80000e2f <+174>:	mov    -0x18(%rbp),%rdx
+   0xffffffff80000e33 <+178>:	add    %rcx,%rdx
+   0xffffffff80000e36 <+181>:	movzbl (%rax),%eax
+   0xffffffff80000e39 <+184>:	mov    %al,(%rdx)
+   0xffffffff80000e3b <+186>:	addl   $0x1,-0xc(%rbp)
+   0xffffffff80000e3f <+190>:	mov    -0xc(%rbp),%eax
+   0xffffffff80000e42 <+193>:	cmp    -0x24(%rbp),%eax
+   0xffffffff80000e45 <+196>:	jb     0xffffffff80000e1c <_ZN6memory4copyEPvS0_j+155>
+   0xffffffff80000e47 <+198>:	nop
+   0xffffffff80000e48 <+199>:	nop
+   0xffffffff80000e49 <+200>:	leave
+   0xffffffff80000e4a <+201>:	ret
+End of assembler dump.
+$26 = -140733243512816
+$27 = -140733243456496
+$28 = 56320
+$29 = {serial = {port = 1016}, printer = {buffer = 0x51040 "\n\020\005", x = 0, y = 800}, memory = {region = 0x51000}, graphics = {framebuffer = {address = 0xffff8000fd000000 "", width = 1280, height = 800, pitch = 5120, bpp = 32, memory_model = 1 '\001', red_mask_size = 8 '\b', red_mask_shift = 16 '\020', green_mask_size = 8 '\b', green_mask_shift = 8 '\b', blue_mask_size = 8 '\b', blue_mask_shift = 0 '\000'}}}
+$30 = 5120
+$31 = 11
+Breakpoint 2 at 0xffffffff800016c3: file src/kernel.cpp, line 47.
+Continuing.
+
+Breakpoint 2, kernel_main (magic=0, addr=0) at src/kernel.cpp:47
+$32 = (u32 *) 0x51040
+$33 = 331840
+$34 = 0
+$35 = {
+  0,
+  1,
+  2,
+  3
+}
+$36 = {
+  0,
+  1,
+  2,
+  3,
+  0 <repeats 12 times>
+}
+Continuing.
+
+Breakpoint 2, kernel_main (magic=0, addr=0) at src/kernel.cpp:47
+memory::copy (dst=0x51050, src=0x51040, size=16) at src/memory.cpp:141
+Attempt to dereference a generic pointer.
+$37 = 0
+$38 = 0
+$39 = 0
+$40 = 16
+$41 = 4
+Continuing.
+
+Breakpoint 2, kernel_main (magic=0, addr=0) at src/kernel.cpp:46
+Continuing.
+
+Breakpoint 1, memory::copy (dst=0xffff800007f7df60, src=0xffffffff80011480, size=51) at src/memory.cpp:145
+Continuing.
+
+Breakpoint 2, kernel_main (magic=0, addr=0) at src/kernel.cpp:46
+
+Breakpoint 1, memory::copy (dst=0xffff800007f6df60, src=0xffffffff80011480, size=51) at src/memory.cpp:145
+0x000000000000e05b in ?? ()
+Cannot find bounds of current function
+Cannot find bounds of current function
+Continuing.
+
+Breakpoint 2, kernel_main (magic=0, addr=0) at src/kernel.cpp:46
+
+Breakpoint 1, memory::copy (dst=0xffff800007f7df60, src=0xffffffff80011480, size=51) at src/memory.cpp:145
+$42 = 32
+$43 = 2
+$44 = 51
+$45 = 16
+0x000000000000e05b in ?? ()
+Cannot find bounds of current function
+Continuing.
+
+Breakpoint 2, kernel_main (magic=0, addr=0) at src/kernel.cpp:46
+
+Breakpoint 2, kernel_main (magic=0, addr=0) at src/kernel.cpp:46
+
+Breakpoint 1, memory::copy (dst=0xffff800007f6df60, src=0xffffffff80011480, size=51) at src/memory.cpp:145
+0x000000000000e05b in ?? ()
+Continuing.
+
+Breakpoint 2, kernel_main (magic=0, addr=0) at src/kernel.cpp:46
+
+Breakpoint 1, memory::copy (dst=0xffff800007f6df60, src=0xffffffff80011480, size=51) at src/memory.cpp:145
+$46 = 0
+Dump of assembler code for function _ZN6memory4copyEPvS0_j:
+   0xffffffff80000de2 <+97>:	mov    -0x20(%rbp),%rax
+   0xffffffff80000de6 <+101>:	add    %rdx,%rax
+   0xffffffff80000de9 <+104>:	mov    -0x8(%rbp),%edx
+   0xffffffff80000dec <+107>:	shl    $0x2,%edx
+   0xffffffff80000def <+110>:	movslq %edx,%rdx
+   0xffffffff80000df2 <+113>:	lea    0x0(,%rdx,4),%rcx
+   0xffffffff80000dfa <+121>:	mov    -0x18(%rbp),%rdx
+   0xffffffff80000dfe <+125>:	add    %rcx,%rdx
+=> 0xffffffff80000e01 <+128>:	movups (%rdx),%xmm0
+   0xffffffff80000e04 <+131>:	movups %xmm0,(%rax)
+   0xffffffff80000e07 <+134>:	addl   $0x1,-0x8(%rbp)
+   0xffffffff80000e0b <+138>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000e0e <+141>:	mov    $0x0,%edx
+   0xffffffff80000e13 <+146>:	divl   -0x10(%rbp)
+   0xffffffff80000e16 <+149>:	mov    %eax,%edx
+   0xffffffff80000e18 <+151>:	mov    -0x8(%rbp),%eax
+   0xffffffff80000e1b <+154>:	cmp    %edx,%eax
+   0xffffffff80000e1d <+156>:	jb     0xffffffff80000dd2 <_ZN6memory4copyEPvS0_j+81>
+   0xffffffff80000e1f <+158>:	mov    -0x4(%rbp),%eax
+   0xffffffff80000e22 <+161>:	mov    %eax,-0xc(%rbp)
+   0xffffffff80000e25 <+164>:	jmp    0xffffffff80000e4a <_ZN6memory4copyEPvS0_j+201>
+   0xffffffff80000e27 <+166>:	mov    -0xc(%rbp),%eax
+   0xffffffff80000e2a <+169>:	movslq %eax,%rdx
+   0xffffffff80000e2d <+172>:	mov    -0x20(%rbp),%rax
+   0xffffffff80000e31 <+176>:	add    %rdx,%rax
+   0xffffffff80000e34 <+179>:	mov    -0xc(%rbp),%edx
+   0xffffffff80000e37 <+182>:	movslq %edx,%rcx
+   0xffffffff80000e3a <+185>:	mov    -0x18(%rbp),%rdx
+   0xffffffff80000e3e <+189>:	add    %rcx,%rdx
+   0xffffffff80000e41 <+192>:	movzbl (%rax),%eax
+   0xffffffff80000e44 <+195>:	mov    %al,(%rdx)
+   0xffffffff80000e46 <+197>:	addl   $0x1,-0xc(%rbp)
+   0xffffffff80000e4a <+201>:	mov    -0xc(%rbp),%eax
+   0xffffffff80000e4d <+204>:	cmp    -0x24(%rbp),%eax
+   0xffffffff80000e50 <+207>:	jb     0xffffffff80000e27 <_ZN6memory4copyEPvS0_j+166>
+   0xffffffff80000e52 <+209>:	nop
+   0xffffffff80000e53 <+210>:	nop
+   0xffffffff80000e54 <+211>:	leave
+   0xffffffff80000e55 <+212>:	ret
+End of assembler dump.
+Dump of assembler code for function _ZN6memory4copyEPvS0_j:
+   0xffffffff80000de2 <+97>:	mov    rax,QWORD PTR [rbp-0x20]
+   0xffffffff80000de6 <+101>:	add    rax,rdx
+   0xffffffff80000de9 <+104>:	mov    edx,DWORD PTR [rbp-0x8]
+   0xffffffff80000dec <+107>:	shl    edx,0x2
+   0xffffffff80000def <+110>:	movsxd rdx,edx
+   0xffffffff80000df2 <+113>:	lea    rcx,[rdx*4+0x0]
+   0xffffffff80000dfa <+121>:	mov    rdx,QWORD PTR [rbp-0x18]
+   0xffffffff80000dfe <+125>:	add    rdx,rcx
+=> 0xffffffff80000e01 <+128>:	movups xmm0,XMMWORD PTR [rdx]
+   0xffffffff80000e04 <+131>:	movups XMMWORD PTR [rax],xmm0
+   0xffffffff80000e07 <+134>:	add    DWORD PTR [rbp-0x8],0x1
+   0xffffffff80000e0b <+138>:	mov    eax,DWORD PTR [rbp-0x4]
+   0xffffffff80000e0e <+141>:	mov    edx,0x0
+   0xffffffff80000e13 <+146>:	div    DWORD PTR [rbp-0x10]
+   0xffffffff80000e16 <+149>:	mov    edx,eax
+   0xffffffff80000e18 <+151>:	mov    eax,DWORD PTR [rbp-0x8]
+   0xffffffff80000e1b <+154>:	cmp    eax,edx
+   0xffffffff80000e1d <+156>:	jb     0xffffffff80000dd2 <_ZN6memory4copyEPvS0_j+81>
+   0xffffffff80000e1f <+158>:	mov    eax,DWORD PTR [rbp-0x4]
+   0xffffffff80000e22 <+161>:	mov    DWORD PTR [rbp-0xc],eax
+   0xffffffff80000e25 <+164>:	jmp    0xffffffff80000e4a <_ZN6memory4copyEPvS0_j+201>
+   0xffffffff80000e27 <+166>:	mov    eax,DWORD PTR [rbp-0xc]
+   0xffffffff80000e2a <+169>:	movsxd rdx,eax
+   0xffffffff80000e2d <+172>:	mov    rax,QWORD PTR [rbp-0x20]
+   0xffffffff80000e31 <+176>:	add    rax,rdx
+   0xffffffff80000e34 <+179>:	mov    edx,DWORD PTR [rbp-0xc]
+   0xffffffff80000e37 <+182>:	movsxd rcx,edx
+   0xffffffff80000e3a <+185>:	mov    rdx,QWORD PTR [rbp-0x18]
+   0xffffffff80000e3e <+189>:	add    rdx,rcx
+   0xffffffff80000e41 <+192>:	movzx  eax,BYTE PTR [rax]
+   0xffffffff80000e44 <+195>:	mov    BYTE PTR [rdx],al
+   0xffffffff80000e46 <+197>:	add    DWORD PTR [rbp-0xc],0x1
+   0xffffffff80000e4a <+201>:	mov    eax,DWORD PTR [rbp-0xc]
+   0xffffffff80000e4d <+204>:	cmp    eax,DWORD PTR [rbp-0x24]
+   0xffffffff80000e50 <+207>:	jb     0xffffffff80000e27 <_ZN6memory4copyEPvS0_j+166>
+   0xffffffff80000e52 <+209>:	nop
+   0xffffffff80000e53 <+210>:	nop
+   0xffffffff80000e54 <+211>:	leave
+   0xffffffff80000e55 <+212>:	ret
+End of assembler dump.
+$47 = -140737354735776
+$48 = (u8 *) 0xffff800007f6df60 "\300\377\366\a"
+$49 = (u8 *) 0xffffffff80011480 "parsing memory maps and setting up memory system..."
+$50 = (u8 *) 0xffff800007f6df60 "\300\377\366\a"
+0x000000000000e05b in ?? ()
+Continuing.
+
+Breakpoint 2, kernel_main (magic=0, addr=0) at src/kernel.cpp:46
+
+Breakpoint 1, memory::copy (dst=0xffff800007f6df60, src=0xffffffff80011480, size=51) at src/memory.cpp:145
+Continuing.
+
+Breakpoint 2, kernel_main (magic=0, addr=0) at src/kernel.cpp:47
+
+Breakpoint 1, memory::copy (dst=0xffff800007f6df60, src=0xffffffff80011480, size=51) at src/memory.cpp:145
+Dump of assembler code for function _ZN6memory4copyEPvS0_j:
+   0xffffffff80000de2 <+97>:	mov    rax,QWORD PTR [rbp-0x20]
+   0xffffffff80000de6 <+101>:	add    rax,rdx
+   0xffffffff80000de9 <+104>:	mov    edx,DWORD PTR [rbp-0x8]
+   0xffffffff80000dec <+107>:	shl    edx,0x2
+   0xffffffff80000def <+110>:	movsxd rdx,edx
+   0xffffffff80000df2 <+113>:	lea    rcx,[rdx*4+0x0]
+   0xffffffff80000dfa <+121>:	mov    rdx,QWORD PTR [rbp-0x18]
+   0xffffffff80000dfe <+125>:	add    rdx,rcx
+=> 0xffffffff80000e01 <+128>:	movups xmm0,XMMWORD PTR [rax]
+   0xffffffff80000e04 <+131>:	movups XMMWORD PTR [rdx],xmm0
+   0xffffffff80000e07 <+134>:	add    DWORD PTR [rbp-0x8],0x1
+   0xffffffff80000e0b <+138>:	mov    eax,DWORD PTR [rbp-0x4]
+   0xffffffff80000e0e <+141>:	mov    edx,0x0
+   0xffffffff80000e13 <+146>:	div    DWORD PTR [rbp-0x10]
+   0xffffffff80000e16 <+149>:	mov    edx,eax
+   0xffffffff80000e18 <+151>:	mov    eax,DWORD PTR [rbp-0x8]
+   0xffffffff80000e1b <+154>:	cmp    eax,edx
+   0xffffffff80000e1d <+156>:	jb     0xffffffff80000dd2 <_ZN6memory4copyEPvS0_j+81>
+   0xffffffff80000e1f <+158>:	mov    eax,DWORD PTR [rbp-0x4]
+   0xffffffff80000e22 <+161>:	mov    DWORD PTR [rbp-0xc],eax
+   0xffffffff80000e25 <+164>:	jmp    0xffffffff80000e4a <_ZN6memory4copyEPvS0_j+201>
+   0xffffffff80000e27 <+166>:	mov    eax,DWORD PTR [rbp-0xc]
+   0xffffffff80000e2a <+169>:	movsxd rdx,eax
+   0xffffffff80000e2d <+172>:	mov    rax,QWORD PTR [rbp-0x20]
+   0xffffffff80000e31 <+176>:	add    rax,rdx
+   0xffffffff80000e34 <+179>:	mov    edx,DWORD PTR [rbp-0xc]
+   0xffffffff80000e37 <+182>:	movsxd rcx,edx
+   0xffffffff80000e3a <+185>:	mov    rdx,QWORD PTR [rbp-0x18]
+   0xffffffff80000e3e <+189>:	add    rdx,rcx
+   0xffffffff80000e41 <+192>:	movzx  eax,BYTE PTR [rax]
+   0xffffffff80000e44 <+195>:	mov    BYTE PTR [rdx],al
+   0xffffffff80000e46 <+197>:	add    DWORD PTR [rbp-0xc],0x1
+   0xffffffff80000e4a <+201>:	mov    eax,DWORD PTR [rbp-0xc]
+   0xffffffff80000e4d <+204>:	cmp    eax,DWORD PTR [rbp-0x24]
+   0xffffffff80000e50 <+207>:	jb     0xffffffff80000e27 <_ZN6memory4copyEPvS0_j+166>
+   0xffffffff80000e52 <+209>:	nop
+   0xffffffff80000e53 <+210>:	nop
+   0xffffffff80000e54 <+211>:	leave
+   0xffffffff80000e55 <+212>:	ret
+End of assembler dump.
+$51 = -2147412864
+$52 = (u8 *) 0xffffffff80011480 "parsing memory maps and setting up memory system..."
+Continuing.
+
+Breakpoint 1, memory::copy (dst=0xffff800007f6df60, src=0xffffffff80011480, size=51) at src/memory.cpp:145
+Continuing.
+
+Breakpoint 1, memory::copy (dst=0xffff800007f6de60, src=0xffffffff80011218, size=37) at src/memory.cpp:145
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+0xffffffff80000e6e in memory::zero (dst=0xffff8000fd3da400, size=61440) at src/memory.cpp:159
+Continuing.
+[Inferior 1 (process 1) exited normally]
+`/home/sushi/src/OS/build/kershi.elf' has changed; re-reading symbols.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x000000000000fff0 in ?? ()
+Continuing.
+[Inferior 1 (process 1) exited normally]
